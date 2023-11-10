@@ -88,6 +88,16 @@ $result = ApiCheck::checker($response, [
 
 Example for array
 ```json
+["bob", "sara", "john"]
+```
+
+ApiCheck
+```php
+$result = ApiCheck::checker($response, [ApiCheck::TYPE_ARRAYS => ApiCheck::TYPE_STRING]);
+```
+
+Example for array
+```json
 {
   "data": [
     {
@@ -103,8 +113,10 @@ ApiCheck
 ```php
 $result = ApiCheck::checker($response, [
     'data' => [
-        'names' => [
-            ApiCheck::TYPE_STRING,
+    ApiCheck::TYPE_ARRAYS => [
+            'names' => [
+                ApiCheck::TYPE_ARRAYS => ApiCheck::TYPE_STRING,
+            ],
         ],
     ],
 ]);

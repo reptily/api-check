@@ -20,6 +20,10 @@ class Tests extends TestCase
                     'id' => 1,
                     'name' => 'red',
                 ],
+                [
+                    'id' => 2,
+                    'name' => 'blue',
+                ],
             ],
             'cars' => [
                 [
@@ -29,8 +33,8 @@ class Tests extends TestCase
                             'size' => 8
                         ],
                         [
-                            'type' => 'sedan',
-                            'size' => 8
+                            'type' => 'jeep',
+                            'size' => 10
                         ],
                     ],
                 ],
@@ -40,14 +44,14 @@ class Tests extends TestCase
         ];
 
         $structure = [
-            'id' => ApiCheck::TYPE_INTEGER,
+            'id' => \App\Classes\ApiCheck::TYPE_INTEGER,
             'data' => [
                 'names' => [
-                    ApiCheck::TYPE_STRING,
+                    ApiCheck::TYPE_ARRAYS => ApiCheck::TYPE_STRING
                 ],
             ],
             'color' => [
-                [
+                ApiCheck::TYPE_ARRAYS => [
                     'id' => ApiCheck::TYPE_INTEGER,
                     'name' => ApiCheck::TYPE_STRING,
                 ]
@@ -55,7 +59,7 @@ class Tests extends TestCase
             'cars' => [
                 [
                     'models' => [
-                        [
+                        ApiCheck::TYPE_ARRAYS => [
                             'type' => ApiCheck::TYPE_STRING,
                             'size' => ApiCheck::TYPE_INTEGER,
                         ]
@@ -170,6 +174,13 @@ class Tests extends TestCase
                 ]
             ]],
             ['items' => []]
+        ));
+
+        $this->assertFalse(ApiCheck::structure(
+            ['items' => [
+                ApiCheck::TYPE_ARRAYS => ApiCheck::TYPE_STRING
+            ]],
+            ['items' => ['bob', 123]]
         ));
     }
 
